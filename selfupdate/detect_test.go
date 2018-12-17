@@ -240,3 +240,17 @@ func TestDetectFromGitHubEnterpriseRepo(t *testing.T) {
 		t.Error("")
 	}
 }
+
+func TestDetectPrerelease(t *testing.T) {
+	testVersion := ""
+	r, ok, err := DetectVersionOfType("hsalokor/go-selfupdate-test-releases", testVersion, RELEASE|PRERELEASE)
+	if err != nil {
+		t.Fatal("Fetch failed:", err)
+	}
+	if !ok {
+		t.Fatalf("Failed to detect %s", testVersion)
+	}
+	if r == nil {
+		t.Fatal("Release detected but nil returned for it")
+	}
+}
